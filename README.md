@@ -74,7 +74,7 @@ All the analytical works will be basically done in [Rstudio](https://www.r-proje
 This project depends on the private datasets of American Express [AMEX]([https://www.cdc.gov/](https://www.americanexpress.com/en-us/careers/?intlink=us-amex-career-en-us-navigation-logo))
 
 ## Datasets
-This project includes the American Express (AMEX) dataset. The project uses the dataset from 2011 to 2021. The datasets cannot be shared due to the organizational policy.
+This project includes the American Express (AMEX) dataset. The dataset contains the sensitive public information and cannot be shared due to the organizational policy. 
 
 ## R-packages
 The analysis requires setting the R environment using various packages. The some of the packages include-
