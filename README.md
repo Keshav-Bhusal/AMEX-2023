@@ -1,8 +1,8 @@
-                                                                                        **# AMEX-2023**
+# AMEX-2023
 
 **Applied Econometric and Data Analytics**
 
-**Introduction**
+## Introduction**
 
 Welcome to the exciting world of practical data analysis in the field of economics! In this project, we're departing from the traditional, well-defined tasks typically encountered in academic settings. Instead, we're immersing you in the dynamic, real-world landscape where data isn't always neatly packaged, problems aren't always crystal clear, and the elegance of your solutions truly matters.
 
@@ -10,7 +10,7 @@ This year, you'll be presented with various complex business challenges, each of
 
 The course's overarching objective is to equip you with the skills and confidence to be effective data analysts in the real world. You'll roll up your sleeves, dive into data cleaning and manipulation, and even engage with experienced applied econometricians from the industry. The foundation of econometric theory will be an essential part of your journey.
 
- **Key learning outcomes:**
+## Key learning outcomes
 
 1. Subject Matter Expertise: You'll demonstrate your proficiency in applying microeconomic and econometric approaches to solve real-world economic problems.
 2. Critical Thinking & Problem Solving: You'll design and execute research strategies to answer substantial questions with tangible real-world implications. You'll independently apply quantitative reasoning to evaluate economic hypotheses and predictions.
@@ -18,7 +18,7 @@ The course's overarching objective is to equip you with the skills and confidenc
 4. Leadership & Collaboration: You'll master the art of effective collaboration, demonstrating initiative and leadership when appropriate in workplace settings.
 Get ready for a challenging yet rewarding experience that will shape you into a proficient and adaptable data analyst, ready to tackle the complexities of the real world.
 
-**Business Problem: Early Legal Effectiveness**
+# Business Problem: Early Legal Effectiveness
 
 **What is the problem?** 
 
@@ -43,7 +43,7 @@ Ideally an analysis based around a predictive model or models that can help us g
 4. Does getting an RPC matter when it comes to success in getting a payment? In other words, should we bother dialing these folks or just send the letter and wait for an inbound call? 
 5. We currently give them 14 days to pay to avoid legal placement. How does the time elapsed in the strategy influence the probability of a payment coming in? Are we being too generous giving two weeks?
 
-**Business Problem: OA Placement**
+## Business Problem: OA Placement
 
 **What is the problem?** 
 
