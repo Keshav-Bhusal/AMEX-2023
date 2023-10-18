@@ -12,10 +12,14 @@ The course's overarching objective is to equip you with the skills and confidenc
 
 ## Key learning outcomes
 
-1. Subject Matter Expertise: You'll demonstrate your proficiency in applying microeconomic and econometric approaches to solve real-world economic problems.
-2. Critical Thinking & Problem Solving: You'll design and execute research strategies to answer substantial questions with tangible real-world implications. You'll independently apply quantitative reasoning to evaluate economic hypotheses and predictions.
-3. Communication: You'll hone your ability to precisely convey your findings in written, spoken, and graphical forms, effectively communicating your insights to both economists and non-economist audiences.
-4. Leadership & Collaboration: You'll master the art of effective collaboration, demonstrating initiative and leadership when appropriate in workplace settings.
+1. Subject Matter Expertise: Demonstrate your proficiency in applying microeconomic and econometric approaches to solve real-world economic problems.
+   
+3. Critical Thinking & Problem Solving: Design and execute research strategies to answer substantial questions with tangible real-world implications. Independently apply quantitative reasoning to evaluate economic hypotheses and predictions.
+   
+5. Communication: Hone the ability to precisely convey your findings in written, spoken, and graphical forms, effectively communicating your insights to both economists and non-economist audiences.
+   
+7. Leadership & Collaboration: Master the art of effective collaboration, demonstrating initiative and leadership when appropriate in workplace settings.
+   
 Get ready for a challenging yet rewarding experience that will shape you into a proficient and adaptable data analyst, ready to tackle the complexities of the real world.
 
 # Business Problem: Early Legal Effectiveness
@@ -79,8 +83,8 @@ The analysis requires setting the R environment using various packages. The some
 * readr
 * ggplot2
 * rio
-
-
+* VIM
+* Zoo
 
 ## Authors
 
