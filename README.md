@@ -94,6 +94,24 @@ Keshav Bhusal
 
 
 ## License
+Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
 
 
 ## Acknowledgments
+**Supervisor**
+Professor. Dr. Gary Thompson
+Professor and Head
+Department of Agricultural & Resource Economics
+McClelland Park 304C
+650 N. Park Ave.
+Tucson, AZ  85719
+
+**Contact Person from AMEX** 
+Charles 
+American Express, Phoenix
+
+**Team Member**
+Zoey Reed-Spitzer
+Pavan Kalyan Thodeti
