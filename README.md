@@ -35,6 +35,7 @@ The primary ask is for you to analyze our historic WCC credit cases and help us 
         - Cardmembers ultimately moved to outside legal partners
 
 **Why is it important?**
+
 There is keen interest in understanding when the strategy works and when it does not. Further, it’s important to keep our CMs in house whenever practical, since legal is an expensive collection method.
 
 **Deliverable** 
@@ -58,6 +59,7 @@ One question that has come up, is whether we’re keeping the right population i
 The primary ask is for you to analyze our historic WCC credit cases and help us to understand why some cardmembers pay us post-cancellation and others do not, ultimately getting placed with an outside collections agency. 
 
 **Why is it important?**
+
 Today there isn’t much differentiation in this strategy, but it’s important to get debts to an agency as early as possible. Should we accelerate more of what we keep in house today?
 
 **Deliverables**
@@ -101,17 +103,27 @@ http://www.apache.org/licenses/
 
 ## Acknowledgments
 **Supervisor**
+
 Professor. Dr. Gary Thompson
+
 Professor and Head
+
 Department of Agricultural & Resource Economics
+
 McClelland Park 304C
-650 N. Park Ave.
+
+650 N. Park Ave
+
 Tucson, AZ  85719
 
 **Contact Person from AMEX** 
+
 Charles 
+
 American Express, Phoenix
 
 **Team Member**
+
 Zoey Reed-Spitzer
+
 Pavan Kalyan Thodeti
