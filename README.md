@@ -2,7 +2,7 @@
 
 **Applied Econometric and Data Analytics**
 
-## Introduction**
+## Introduction
 
 Welcome to the exciting world of practical data analysis in the field of economics! In this project, we're departing from the traditional, well-defined tasks typically encountered in academic settings. Instead, we're immersing you in the dynamic, real-world landscape where data isn't always neatly packaged, problems aren't always crystal clear, and the elegance of your solutions truly matters.
 
