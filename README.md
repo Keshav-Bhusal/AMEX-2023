@@ -64,3 +64,32 @@ Ideally an analysis based around a predictive model or models that can help us g
 2. Does the distinction between Consumer or OPEN Small Business case matter here? If so, why? 
 3. Does the number and type of communication we have with the CM make a material impact post-cancellation on whether they pay/RPC or end up going to an OA? Does more engagement (SMS, email) help? 
 4. Does getting an RPC matter when it comes to success in getting a payment post-cancellation? Should we make more/less effort to contact cancelled cases than we do today?
+
+## Dependencies 
+All the analytical works will be basically done in [Rstudio](https://www.r-project.org/). 
+This project depends on the private datasets of American Express [AMEX]([https://www.cdc.gov/](https://www.americanexpress.com/en-us/careers/?intlink=us-amex-career-en-us-navigation-logo))
+
+## Datasets
+This project includes the American Express (AMEX) dataset. The project uses the dataset from 2011 to 2021. The datasets cannot be shared due to the organizational policy.
+
+## R-packages
+The analysis requires setting the R environment using various packages. The some of the packages include-
+* tidyverse
+* diplyr
+* readr
+* ggplot2
+* rio
+
+
+
+## Authors
+
+Keshav Bhusal
+
+[LinkedIn](www.linkedin.com/in/keshav-bhusal-37a3a3145/)
+
+
+## License
+
+
+## Acknowledgments
