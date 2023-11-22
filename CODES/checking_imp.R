@@ -84,7 +84,7 @@ vars_to_impute <- c(
 ##############################
 
 particular1 <- particular %>%
-  group_by(pseudo_key) %>%
+  group_by(pseudo_key, case_grp_cd, case_seq_nbr) %>%
   arrange(pseudo_key, act_dt) %>%
   mutate(across(vars_to_impute, ~ {
     if (all(is.na(.))) {
@@ -133,7 +133,7 @@ particular1 <- particular %>%
     
     
 # Exporting Dataset    
-  export(particular1, "Imputed_with_date.Rdata")  
+  export(particular1, "Imputed_Final.Rdata")  
   
   
   
