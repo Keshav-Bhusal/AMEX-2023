@@ -61,14 +61,31 @@ library(ggtext)
 #Load the necessary data sets and creating the combined dataset 
 early_legal <- x
 
+# Imputing the missing values in FICO score at case open and early legal with the median FICO score
+early_legal <- early_legal %>% 
+  mutate(case_cbr_score = ifelse(is.na(case_cbr_score), median(case_cbr_score, na.rm = TRUE), case_cbr_score),
+         co_case_cbr_score = ifelse(is.na(co_case_cbr_score), median(co_case_cbr_score, na.rm = TRUE), co_case_cbr_score))
+
+# Creating the dummy for some missing or left over variables 
 early_legal <- early_legal %>%   
   mutate(co_exposure_to_tca_due = sca_co_exposure/sca_co_tca_due,
          co_exposure_to_tp_due = sca_co_exposure/sca_co_tp_due) %>% 
-  mutate(mobile_login_before = if_else(mobile_login_period == c("before_only", "both_BA"), 1,0),
-         mobile_login_after = if_else(mobile_login_period == c("after_only", "both_BA"), 1,0),
-         web_login_before = if_else(web_login_period == c("before_only", "both_BA"), 1,0),
-         web_login_after = if_else(web_login_period == c("after_only", "both_BA"), 1,0))
+  mutate(mobile_login_before = if_else(mobile_login_period %in% c("before_only", "both_BA"), 1,0),
+         mobile_login_after = if_else(mobile_login_period %in% c("after_only", "both_BA"), 1,0),
+         web_login_before = if_else(web_login_period %in% c("before_only", "both_BA"), 1,0),
+         web_login_after = if_else(web_login_period %in% c("after_only", "both_BA"), 1,0))
 
+# Creating the dummy for consumer and business type
+early_legal <- early_legal %>% 
+mutate(consumer = if_else(cm_type %in%  c("Customer_Only", "Both"), 1, 0),
+       business = if_else(cm_type %in%  c("Business_Only", "Both"), 1, 0))
+
+# Looking at the summary ("both" category -136 are evenly distributed in the categories: consumer (136 + 3601) and business (136 + 1047))
+table(early_legal$cm_type)  
+table(early_legal1$consumer)
+table(early_legal1$business)
+
+# Creating the bins for the exposure 
 early_legal <- early_legal %>%   
   mutate(exposure_bins = 
            case_when(total_case_exposure <= 10000 ~ "less than 10k",
