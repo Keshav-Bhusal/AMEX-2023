@@ -470,7 +470,7 @@ auc(roc_rf)
 
 # Compare RF to Logit
 # output predictions
-early_legal$logit_pred <- predict(model1, early_legal, "response")
+early_legal$logit_pred <- predict(model_before, early_legal, "response")
 
 # calculate ROC curves
 roc_logit <- roc(early_legal$pvcDUM, early_legal$logit_pred)
@@ -480,8 +480,8 @@ plot(roc_rf, main="ROC Curves Comparison", col="#377eb8", lwd=2)
 lines(roc_logit, col="red", lwd=2)
 # lines(roc_probit, col="green", lwd=2)
 legend("bottomright", legend=c("RF", "Logit"),
-       col=c("#377eb8", "red"), lty=1, lwd=2)
+       col=c("#377eb8", "red"), lty=1, lwd=2) 
 
 # Compare area under the curves
-auc(roc_rf)
+auc(roc_rf) 
 auc(roc_logit)
