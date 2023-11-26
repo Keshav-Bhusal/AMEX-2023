@@ -311,7 +311,7 @@ model_business_after <- glm(pvcDUM ~ sca_tca_due + sca_exposure + sca_tp_due +
 
 summary(model_business_after)
 
-# Summary of the Models 
+############ Summary of the Models #############
 
 stargazer(model_before, model_business_before, model_consumer_before, 
           type="text",
@@ -329,9 +329,159 @@ stargazer(model_after, model_business_after, model_consumer_after,
 #                    "Total Case Amount Due","Total Past Due",
 #                    "Exposure per Total Due"), out="msg_models.txt"
 
-
-
 # Summary of the models 
 stargazer(model1, model11, model4, model3, model33, model22,
           type="text",
           dep.var.labels = "Not Placed")
+
+
+########### Machine Learning: Random Forest ##########################
+
+# load packages
+library(ranger)
+library(tree)
+library(randomForest)
+library(pROC)
+
+# Hyper parameter tuning
+hyper_grid <- expand.grid(
+  mtry       = c(2:16),
+  node_size  = c(3, 4, 5, 7, 10),
+  sample_size = c(.66, .75, .85),
+  num_trees  = c(200, 300, 500),
+  OOB_RMSE   = 0
+)
+
+# iterate over all possible tuning parameter combinations
+# then select model with the best predictive power
+
+for (i in 1:nrow(hyper_grid)) {
+  # run rf
+  rf_tune <- 
+    ranger(
+      formula         = pvcDUM ~ sca_tca_due + sca_exposure + sca_tp_due + 
+                        setup_cdss + tsr_max_prob + 
+                        phone_inbound_before + phone_outbound_before +
+                        chat_before + sms_before + email_sent_before + email_letter_sent_before + 
+                        mobile_login_before + web_login_before + both_login_before +
+                        cons_FICO + sm_bus_FICO,
+      
+      data            = early_legal, 
+      probability     = TRUE,
+      num.trees       = hyper_grid$num_trees[i],
+      mtry            = hyper_grid$mtry[i],
+      min.node.size   = hyper_grid$node_size[i],
+      sample.fraction = hyper_grid$sample_size[i]
+    )
+  # add OOB error to grid
+  hyper_grid$OOB_RMSE[i] <- sqrt(rf_tune$prediction.error)     
+}
+
+# select best model (lowest root mean squared error)
+best_model <- filter(hyper_grid, OOB_RMSE == min(OOB_RMSE))
+best_model
+
+# re-run RF with best tuning parameters
+rf_final <- 
+  ranger(
+    formula         = pvcDUM ~ sca_tca_due + sca_exposure + sca_tp_due + 
+                      setup_cdss + tsr_max_prob + 
+                      phone_inbound_before + phone_outbound_before +
+                      chat_before + sms_before + email_sent_before + email_letter_sent_before + 
+                      mobile_login_before + web_login_before + both_login_before +
+                      cons_FICO + sm_bus_FICO,
+    
+    data            = early_legal, 
+    probability     = TRUE,
+    importance      = "impurity", 
+    num.trees       = best_model$num_trees,
+    mtry            = best_model$mtry,
+    min.node.size   = best_model$node_size,
+    sample.fraction = best_model$sample_size
+  )
+
+# predict into sample
+early_legal$notplaced_pred <- predict(rf_final, early_legal)$predictions[,1]
+early_legal$placed_pred <- predict(rf_final, early_legal)$predictions[,2]
+
+early_legal <- early_legal %>% 
+  mutate(notplaced_char = ifelse(pvcDUM == 1, "Not Placed", "Placed"),
+         notplaced_char = factor(notplaced_char,
+                                levels = c("Not Placed", "Placed")))
+
+#Evaluate Model Performance
+
+ggplot(early_legal, 
+       aes(x = notplaced_char, y = notplaced_pred)) +
+  geom_jitter(alpha = 0.5) +
+  geom_hline(yintercept = 0.5, color = "red", linetype = "dashed") +
+  labs(title = "Actual Not Placed Vs Predicted Not Placed Probabilities",
+       x = "Actual Not Placed", 
+       y = "Predicted Not Placed Probability") +
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.spacing = unit(1, "lines"),
+        panel.grid = element_blank(),
+        strip.background = element_blank(),
+        axis.title = element_text(size = 14),
+        axis.text = element_text(size = 12),
+        legend.text = element_text(size = 14))
+
+ggsave(filename = "RF_prediction_evaluation.png",
+       height = 6,
+       width = 9,
+       dpi = 300)
+
+# check out variable importance
+vars <- ranger::importance(rf_final)
+var_importance <- data.frame(Variable = names(vars), 
+                             Importance = vars)
+
+ggplot(var_importance, aes(x = reorder(Variable, Importance), y = Importance)) +
+  geom_segment(aes(xend = Variable, yend = 0), color = "blue") +
+  geom_point(size = 3) + 
+  coord_flip() +
+  labs(title = "Variable Importance Measures",
+       y = "Importance Metric",
+       x = "Variable") +
+  theme_bw() +
+  theme(panel.border = element_blank(),
+        panel.spacing = unit(1, "lines"),
+        panel.grid = element_blank(),
+        strip.background = element_blank(),
+        axis.title = element_text(size = 14),
+        axis.text = element_text(size = 12),
+        legend.text = element_text(size = 14))
+
+ggsave(filename = "RF_variable_importance.png",
+       height = 6,
+       width = 9,
+       dpi = 300)
+
+# Compute the ROC curve
+roc_rf <- roc(early_legal$pvcDUM, early_legal$notplaced_pred)
+
+# Plot the ROC curve
+plot(roc_rf, main="ROC Curve for Not Placed Prediction",
+     col="#377eb8", lwd=2)
+abline(a=0, b=1, lty=2, col="gray")
+
+auc(roc_rf)
+
+# Compare RF to Logit
+# output predictions
+early_legal$logit_pred <- predict(model1, early_legal, "response")
+
+# calculate ROC curves
+roc_logit <- roc(early_legal$pvcDUM, early_legal$logit_pred)
+
+# plot all ROC curves
+plot(roc_rf, main="ROC Curves Comparison", col="#377eb8", lwd=2)
+lines(roc_logit, col="red", lwd=2)
+# lines(roc_probit, col="green", lwd=2)
+legend("bottomright", legend=c("RF", "Logit"),
+       col=c("#377eb8", "red"), lty=1, lwd=2)
+
+# Compare area under the curves
+auc(roc_rf)
+auc(roc_logit)
